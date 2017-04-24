@@ -4,6 +4,8 @@
 *.swp
 /.bundle
 /.env.local
+/.env
+/.foreman
 /coverage/*
 /db/*.sqlite3
 /log/*

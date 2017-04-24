@@ -10,11 +10,25 @@ set -e
 gem install bundler --conservative
 bundle check || bundle install
 
+# Set up configurable environment variables
+if [ ! -f .env ]; then
+  cp .sample.env .env
+fi
+
 # Set up database and add any development seed data
 bin/rake dev:prime
 
 # Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
 mkdir -p .git/safe
+
+# Pick a port for Foreman
+echo "port: 5000" > .foreman
+
+# Print warning if Foreman is not installed
+if ! command -v foreman &>/dev/null; then
+  echo "foreman is not installed."
+  echo "See https://github.com/ddollar/foreman for install instructions."
+fi
 
 # Only if this isn't CI
 # if [ -z "$CI" ]; then
