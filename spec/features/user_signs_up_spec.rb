@@ -5,6 +5,7 @@ feature "User signs up" do
     visit new_user_registration_path
     fill_in "user_email", with: "test@example.com"
     fill_in "user_password", with: "password"
+    fill_in "user_password_confirmation", with: "password"
     click_button "Sign up"
 
     expect(current_path).to eq(dashboard_path)
